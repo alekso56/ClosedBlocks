@@ -32,7 +32,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
 public final class BlockReplacer extends JavaPlugin implements Listener{
-	public static int x,y,z;
 	public static int i1;
 	public static int current = 1;
 	public World world;
@@ -43,7 +42,7 @@ public final class BlockReplacer extends JavaPlugin implements Listener{
 		getConfig().options().copyDefaults(true);
 		getLogger().info("saved config");
 		saveConfig();
-		//make scheduler here for replaceblock
+		//make scheduler here for getConfig().getInt("Launch.NextBlockScan")
 		CATArray = loadArray();
 		if(CATArray[1] == null){CATArray[1] = String.valueOf(current);getLogger().info("set array to current");}
 		else{current = Integer.parseInt(CATArray[1]);getLogger().info("set current to array");}
@@ -85,9 +84,10 @@ public final class BlockReplacer extends JavaPlugin implements Listener{
 			  int y = Integer.parseInt(stringtokenizer.nextToken());
 			  int z = Integer.parseInt(stringtokenizer.nextToken());
 			  int Material = Integer.parseInt(stringtokenizer.nextToken());
-			  String timeStamp = stringtokenizer.nextToken();
-	          //pls fix pls
-			  if(timeStamp == "bigger than config value then"){
+			  int timeStamps = Integer.parseInt(stringtokenizer.nextToken());
+	          //if timestamp - currenttime  = bigger than config value then
+			  int timeStamp = Integer.parseInt(cTime());
+			  if(timeStamps - timeStamp > getConfig().getInt("Launch.CheckTime")){
 				  world.getBlockAt(x,y,z).setTypeId(Material); 
 			  }
 	  }
