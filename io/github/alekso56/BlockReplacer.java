@@ -15,6 +15,7 @@ import java.util.zip.GZIPOutputStream;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -131,9 +132,26 @@ public final class BlockReplacer extends JavaPlugin implements Listener{
         }
         else if (b1 == Material.LEAVES && ST.get(event.getPlayer().getName()) == "SWORD")
         {
-        	//savedb
+        	
         }
-        else if(b1 == Material.LOG || b1 == Material.LEAVES && !event.getPlayer().isFlying()){event.setCancelled(true);}
+        else if (b1 == Material.IRON_ORE ||b1 == Material.GOLD_ORE ||b1 == Material.DIAMOND_ORE ||b1 == Material.LAPIS_ORE ||b1 == Material.COAL_ORE && ST.get(event.getPlayer().getName()) == "PICKAXE"){
+        	if(b1 == Material.IRON_ORE){b.setType(Material.WOOL); b.setData((byte)8); event.getPlayer().getInventory().addItem(new ItemStack(Material.IRON_ORE, 1));}
+            else if(b1 == Material.COAL_ORE){b.setType(Material.WOOL); b.setData((byte)15);event.getPlayer().getInventory().addItem(new ItemStack(Material.COAL_ORE, 1));}
+            else if(b1 == Material.GOLD_ORE){b.setType(Material.WOOL); b.setData((byte)4);event.getPlayer().getInventory().addItem(new ItemStack(Material.GOLD_ORE, 1));}
+            else if(b1 == Material.DIAMOND_ORE){b.setType(Material.WOOL); b.setData((byte)9);event.getPlayer().getInventory().addItem(new ItemStack(Material.DIAMOND, 1));}
+            else if(b1 == Material.LAPIS_ORE){b.setType(Material.WOOL); b.setData((byte)11);short itemDamage = 4;event.getPlayer().getInventory().addItem(new ItemStack(Material.INK_SACK, 4 , itemDamage));}
+            else if(b1 == Material.STONE){b.setTypeId(4);event.getPlayer().getInventory().addItem(new ItemStack(Material.STONE, 1));}
+        	event.setCancelled(true);
+        	//dbsave
+        }
+        else if (b1 == Material.SAND || b1 == Material.CLAY && ST.get(event.getPlayer().getName()) == "SPADE")
+        {
+        	if(b1 == Material.SAND){b.setType(Material.SANDSTONE);event.getPlayer().getInventory().addItem(new ItemStack(Material.SAND, 1));}
+        	else if(b1 == Material.CLAY){b.setType(Material.WOOL); b.setData((byte)7);event.getPlayer().getInventory().addItem(new ItemStack(337, 4));}
+        	event.setCancelled(true);
+        	//Dbsave
+        }
+        else if(event.getPlayer().getGameMode() != GameMode.CREATIVE){event.setCancelled(true);}
      }
 
 	@EventHandler
@@ -145,10 +163,11 @@ public final class BlockReplacer extends JavaPlugin implements Listener{
         Integer id = i1;
 		getLogger().info(id + " is the typeID!");
         getLogger().info(event.getNewSlot() + " is the itemslot!");
-        if(id == 269 || id == 256 || id == 273 || id == 277 ){p.sendMessage(p.getName() + " equipped A SPADEEEE!!!"); ST.put(p.getName(), "SPADE");}
-        else if(id == 270 || id == 257 || id == 274 || id == 278){p.sendMessage(p.getName() + " equipped An PICKAXEe!!!"); ST.put(p.getName(), "PICKAXE");}
+        if(id == 269 || id == 284 || id == 273 || id == 277 ){p.sendMessage(p.getName() + " equipped A SPADEEEE!!!"); ST.put(p.getName(), "SPADE");}
+        else if(id == 270 || id == 285 || id == 274 || id == 278){p.sendMessage(p.getName() + " equipped An PICKAXEe!!!"); ST.put(p.getName(), "PICKAXE");}
         else if(id == 271 || id == 286 || id == 279 || id == 275){p.sendMessage(p.getName() + " equipped An AXE!!!"); ST.put(p.getName(), "AXE");}
         else if(id == 268 || id == 267 || id == 272 || id == 276){p.sendMessage(p.getName() + " equipped A sword!!!"); ST.put(p.getName(), "SWORD");}
+        else if(id == 359){p.sendMessage(p.getName() + " equipped shears!"); ST.put(p.getName(), "SHEARS");}
         else{ST.put(p.getName(), "NONE");} //player has no tool
                 }
     
@@ -168,7 +187,7 @@ public final class BlockReplacer extends JavaPlugin implements Listener{
              send.playSound(send.getLocation(), Sound.BLAZE_DEATH, 1.0F, 1.0F);
              send.setVelocity(new Vector(40, 10, 40));
              Vector dir = send.getLocation().getDirection();
-             send.setVelocity(dir.multiply(8));
+             send.setVelocity(dir.multiply(100));
              send.setFallDistance(-150.0F);
              send.sendMessage(ChatColor.translateAlternateColorCodes('&', "LAWNCHING"));
            }
