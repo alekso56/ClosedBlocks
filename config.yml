@@ -1,4 +1,21 @@
+#Item == test , Checktime == time in hhmmss, NextBlockScan == time before scheduler checks for update
 Launch:
  Item: 46
- CheckTime: 100
- NextBlockScan: 1000
+ CheckTime: 20
+ NextBlockScan: 1
+ 
+ #enable mining of certain blocks.. 
+ Blocks:
+  GOLD: true
+  COAL: true
+  EMERALD: true
+  REDSTONE: true
+  DIAMOND: true
+  IRON: true
+  LAPIS: true
+  STONE: true
+  SAND: true
+  CLAY: true
+  GRAVEL: true
+  LOGS: true
+  LEAVES: true
