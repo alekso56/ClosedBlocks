@@ -39,10 +39,10 @@ public final class BlockReplacer extends JavaPlugin implements Listener{
 	public void onEnable(){
 		Bukkit.getPluginManager().registerEvents(this, this);
 		getConfig().options().copyDefaults(true);
-		getLogger().info("saved config");
+		//getLogger().info("saved config");
 		saveConfig();
 		Proclist = loadArray(); 
-		getLogger().info("loaded arrayData!");
+		//getLogger().info("loaded arrayData!");
 		//yay for bukkit scheduling    /s
 	    if (getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
 	    public void run()
@@ -96,7 +96,7 @@ public final class BlockReplacer extends JavaPlugin implements Listener{
 	          //if timestamp - currenttime  = bigger than config value then
 			  int timeStamp = Integer.parseInt(cTime());
 			  int result = timeStamp - timeStamps;
-			  getLogger().info("Scanning "+index+" result:"+result+" TimeCheck: "+getConfig().getInt("Launch.CheckTime"));
+			  //getLogger().info("Scanning "+index+" result:"+result+" TimeCheck: "+getConfig().getInt("Launch.CheckTime"));
 			  if(result > getConfig().getInt("Launch.CheckTime")){
 				  Proclist.remove(index);
 				  World world= getServer().getWorld("world");
@@ -143,7 +143,8 @@ public ArrayList<String> loadArray() {
         if (b1 == Material.LOG && ST.get(event.getPlayer().getName()) == "AXE" && !getConfig().getBoolean("Blocks.LOGS"))
         {
         	b.setTypeId(5);
-        	event.getPlayer().getInventory().addItem(new ItemStack(Material.LOG, 1));
+        	short itemDamage = b.getData();
+        	event.getPlayer().getInventory().addItem(new ItemStack(Material.LOG, 1, itemDamage));
         	AddToDb(dbString);
         	event.setCancelled(true);
         }

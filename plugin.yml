@@ -1,13 +1,7 @@
  name: BlockReplacer
  version: 0.1
  description: First test of BlockReplacer!
- # We could place every author in the authors list, but chose not to for illustrative purposes
- # Also, having an author distinguishes that person as the project lead, and ensures their 
- # name is displayed first
  author: Alekso56
- authors: [Alekso56] 
- <nowiki>website: http://forums.bukkit.org/threads/MyPlugin.31337/</nowiki>
- 
  main: io.github.alekso56.BlockReplacer
  database: false
  
