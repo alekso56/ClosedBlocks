@@ -44,7 +44,15 @@ public final class BlockReplacer extends JavaPlugin implements Listener{
 		saveConfig();
 		Proclist = loadArray(); 
 		getLogger().info("loaded arrayData!");
-	    if (getServer().getScheduler().scheduleSyncRepeatingTask(this, CheckDB(), getConfig().getInt("Launch.NextBlockScan") * 20, getConfig().getInt("Launch.NextBlockScan") * 20) > 0) {
+		//yay for bukkit scheduling    /s
+	    if (getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable(){
+	    public void run()
+	    {
+	        for(int x = 1; x < Proclist.size(); x = x+1){
+	    	  splitString(Proclist.get(x),x);}
+	        }
+	    },getConfig().getInt("Launch.NextBlockScan") * 20, getConfig().getInt("Launch.NextBlockScan") * 20) > 0) 
+	    {
 	     getLogger().info("Scheduled dbcheck with bukkit scheduler.");
 	    } else {
 	        getLogger().warning("Failed to schedule dbcheck with bukkit scheduler.");
@@ -96,12 +104,6 @@ public final class BlockReplacer extends JavaPlugin implements Listener{
 	  }
 }
   
- public Runnable CheckDB(){
-	 for(int x = 1; x < Proclist.size(); x = x+1){
-	  splitString(Proclist.get(x),x);
-	 }
-	return null;
- }
   private String joinString(int x2, int y2, int z2, int typeId, int i) {
 		String y = x2 + ":" +y2+":" +z2+ ":" +typeId+ ":"+i;
 		return y;
@@ -140,7 +142,10 @@ public ArrayList<String> loadArray() {
     	world = player.getWorld();}
         if (b1 == Material.LOG && ST.get(event.getPlayer().getName()) == "AXE")
         {
+        	b.setType(Material.WOOD);
+        	event.getPlayer().getInventory().addItem(new ItemStack(Material.LOG, 1));
         	AddToDb(dbString);
+        	event.setCancelled(true);
         }
         else if (b1 == Material.LEAVES && ST.get(event.getPlayer().getName()) == "SHEARS")
         {
