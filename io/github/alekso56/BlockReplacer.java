@@ -61,7 +61,7 @@ public final class BlockReplacer extends JavaPlugin implements Listener{
  
 	public void onDisable(){
 		saveArray(Proclist);
-		getLogger().info("Saved array data!");
+		//getLogger().info("Saved array data!");
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 		if(cmd.getName().equalsIgnoreCase("test")){
@@ -101,7 +101,7 @@ public final class BlockReplacer extends JavaPlugin implements Listener{
 				  Proclist.remove(index);
 				  World world= getServer().getWorld("world");
 				  world.getBlockAt(x, y, z).setTypeId(Material, true);
-				  getLogger().info("set "+x+" "+y+" "+z+" "+Material+" And deleted: "+index);
+				  //getLogger().info("set "+x+" "+y+" "+z+" "+Material+" And deleted: "+index);
 			  }
 	  }
 }
@@ -112,8 +112,8 @@ public final class BlockReplacer extends JavaPlugin implements Listener{
 	}
   
   private void AddToDb(String dbString){
-	getLogger().info(dbString + " is dbstring");
-  	getLogger().info(Proclist.size() + " is tbP");
+	//getLogger().info(dbString + " is dbstring");
+  	//getLogger().info(Proclist.size() + " is tbP");
   	Proclist.add(dbString);
   }
 
