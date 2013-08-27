@@ -3,6 +3,7 @@ Launch:
  Item: 46
  CheckTime: 20
  NextBlockScan: 1
+ DEBUG: false
  
  #enable mining of certain blocks.. 
  Blocks:
